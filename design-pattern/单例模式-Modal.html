@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实现一个全局唯一的Modal弹框</title>
+    <style>
+      #modal {
+        height: 200px;
+        width: 200px;
+        line-height: 200px;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid black;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open">打开弹框</button>
+    <button id="close">关闭弹框</button>
+  </body>
+  <script>
+    //实现一个全局唯一的Modal弹框
+    const Modal = (function() {
+      let modal = null
+      return function() {
+        if(!modal) {
+          modal = document.createElement('div')
+          modal.style.display = 'none'
+          modal.id = 'modal'
+          modal.innerHTML = '我是弹框'
+          document.body.append(modal)
+        }
+        return modal
+      }
+    })()
+
+    document.getElementById('open').addEventListener('click', () => {
+      const modal = new Modal()
+      modal.style.display = 'block'
+    })
+    document.getElementById('close').addEventListener('click', () => {
+      const modal = new Modal()
+      modal.style.display = 'none'
+    })
+  </script>
+</html>
