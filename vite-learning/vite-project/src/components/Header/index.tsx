@@ -1,0 +1,16 @@
+export function Header() {
+  return (
+    <div className="p-20px text-center">
+      <h1 className="flex-c">this is vite</h1>
+      <button
+        bg="blue-400 hover:blue-500 dark:blue-500 dark:hover:blue-600"
+        text="sm white"
+        font="mono light"
+        p="y-2 x-4"
+        border="2 rounded blue-200"
+      >
+        Button
+      </button>
+    </div>
+  );
+}
