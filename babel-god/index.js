@@ -6,3 +6,4 @@ const ast = parser.parse('代码', {
 })
 
 console.log(ast)
+console.log('提交测试')
