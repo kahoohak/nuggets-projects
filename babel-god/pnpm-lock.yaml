@@ -23,6 +23,9 @@ devDependencies:
   '@babel/types':
     specifier: ^7.22.10
     version: 7.22.10
+  acorn:
+    specifier: ^8.10.0
+    version: 8.10.0
 
 packages:
 
@@ -253,6 +256,12 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /acorn@8.10.0:
+    resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
     dev: true
 
   /ansi-styles@3.2.1:
