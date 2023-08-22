@@ -5,10 +5,16 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  '@babel/code-frame':
+    specifier: ^7.22.10
+    version: 7.22.10
   '@babel/core':
     specifier: ^7.22.10
     version: 7.22.10
   '@babel/generator':
+    specifier: ^7.22.10
+    version: 7.22.10
+  '@babel/highlight':
     specifier: ^7.22.10
     version: 7.22.10
   '@babel/parser':
