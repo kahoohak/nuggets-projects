@@ -25,4 +25,7 @@ const [ele1, ele2, ...rest] = arr9
 const arr10: [number, string, boolean] = [1, '2', true]
 const [age, name, male, other] = arr10
 
+const arr11: readonly string[] = ['1']
+arr11.push('2')
+
 export {}

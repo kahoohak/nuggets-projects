@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>执行一次</title>
+    <style>
+      ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      li button {
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        outline: 0 none;
+      }
+
+      li.completed {
+        transition: opacity 2s;
+        opacity: 0;
+      }
+
+      li button:before {
+        content: "☑️";
+      }
+
+      li.completed button:before {
+        content: "✅";
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li><button></button><span>任务一：学习HTML</span></li>
+      <li><button></button><span>任务二：学习CSS</span></li>
+      <li><button></button><span>任务三：学习JavaScript</span></li>
+    </ul>
+  </body>
+  <script type="module" src="./assets/once.js"></script>
+</html>
