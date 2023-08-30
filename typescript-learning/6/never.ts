@@ -20,7 +20,7 @@ function foo(input: number) {
 
 /***********************************************************************************/
 
-declare const strOrNumOrBool: string | number | boolean;
+declare let strOrNumOrBool: string | number | boolean;
 
 if (typeof strOrNumOrBool === "string") {
   console.log("str!");
