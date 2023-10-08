@@ -3,11 +3,18 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import autoprefixer from "autoprefixer";
 import windi from "vite-plugin-windicss";
+import svgr from 'vite-plugin-svgr';
 
 const variablePath = normalizePath(path.resolve("./src/variable.scss"));
 
+//是否是生产环境
+const isProduction = process.env.NODE_ENV === 'production'
+//填入项目的cdn域名地址
+const CDN_URL = 'www.cdn.com/'
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: isProduction ? CDN_URL : '/',
   css: {
     //css modules配置
     modules: {
@@ -28,5 +35,10 @@ export default defineConfig({
       ],
     },
   },
-  plugins: [react(), windi()],
+  plugins: [react(), windi(), svgr()],
+  resolve: {
+    alias: {
+      '@assets': path.join(__dirname, 'src/assets')
+    }
+  }
 });
