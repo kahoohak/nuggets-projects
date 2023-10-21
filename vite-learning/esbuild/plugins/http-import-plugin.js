@@ -7,6 +7,14 @@ module.exports = () => ({
       namespace: 'http-url'
     }))
     //通过fetch请求加载CDN资源
-  build.onLoad({ filter: /.*/, namespace: 'http-url' }, async (args) => ({}))
+    build.onLoad({ filter: /.*/, namespace: 'http-url' }, async (args) => {
+      let content = await new Promise((resolve, reject) => {
+        function fetch(url) {}
+        
+        fetch(args.path)
+      })
+
+      return { contents }
+    })
   }
 })
