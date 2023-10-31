@@ -53,4 +53,9 @@ export class PersonController {
   urlParam(@Param('id') id: string) {
     return `received:id=${id}`;
   }
+
+  @Post()
+  body(@Body() createPersonDto: CreatePersonDto) {
+    return `received: ${JSON.stringify(createPersonDto)}`;
+  }
 }

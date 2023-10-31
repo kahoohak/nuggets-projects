@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/qs@6.10.2/dist/qs.js"></script>
 </head>
 <body>
   <script>
@@ -14,16 +16,34 @@
     // }
     // urlParam()
 
-    async function query() {
-      const res = await axios.get('/api/person/find', {
-        params: {
-          name: 'kaho',
-          age: 29
-        }
+    // async function query() {
+    //   const res = await axios.get('/api/person/find', {
+    //     params: {
+    //       name: 'kaho',
+    //       age: 29
+    //     }
+    //   })
+    //   console.log(res)
+    // }
+    // query()
+
+    // async function formUrlEncoded() {
+    //   const res = await axios.post('/api/person', Qs.stringify({
+    //     name: 'kaho',
+    //     age: 29
+    //   }), {headers: { 'content-type' : 'application/x-www-form-urlencoded' }})
+    //   console.log(res)
+    // }
+    // formUrlEncoded()
+
+    async function json() {
+      const res = await axios.post('/api/person', {
+        name: 'kaho',
+        age: 29
       })
       console.log(res)
     }
-    query()
+    json()
   </script>
 </body>
 </html>
