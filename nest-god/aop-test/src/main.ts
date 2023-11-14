@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { LoginGuard } from './login.guard';
 import { TimeInterceptor } from './time.interceptor';
 import { ValidatePipe } from './validate.pipe';
+import { TestFilter } from './test.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +17,8 @@ async function bootstrap() {
 
   // app.useGlobalGuards(new LoginGuard());
   // app.useGlobalInterceptors(new TimeInterceptor());
-  app.useGlobalPipes(new ValidatePipe());
+  // app.useGlobalPipes(new ValidatePipe());
+  app.useGlobalFilters(new TestFilter());
   await app.listen(3000);
 }
 bootstrap();
