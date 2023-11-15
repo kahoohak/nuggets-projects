@@ -15,6 +15,9 @@ import {
   UseGuards,
   UseInterceptors,
   SetMetadata,
+  Headers,
+  Ip,
+  Session,
 } from '@nestjs/common';
 import { AaaService } from './aaa.service';
 import { CreateAaaDto } from './dto/create-aaa.dto';
@@ -61,6 +64,25 @@ export class AaaController {
     console.log(typeof aaa, typeof bbb);
     console.log(aaa, bbb);
     return 'hello';
+  }
+
+  @Get('header')
+  getHeader(@Headers('Accept') accept: string) {
+    console.log(accept);
+  }
+
+  @Get('ip')
+  getIp(@Ip() ip: string) {
+    console.log(ip);
+  }
+
+  @Get('session')
+  getSession(@Session() session) {
+    if (!session.count) {
+      session.count = 0;
+    }
+    session.count = session.count + 1;
+    return session.count;
   }
 
   @Post('/bbb')
