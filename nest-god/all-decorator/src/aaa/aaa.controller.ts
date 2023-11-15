@@ -1,9 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpException,
+  HttpStatus,
+  UseFilters,
+  Query,
+  ParseIntPipe,
+  ParseBoolPipe,
+  UseGuards,
+  UseInterceptors,
+  SetMetadata,
+} from '@nestjs/common';
 import { AaaService } from './aaa.service';
 import { CreateAaaDto } from './dto/create-aaa.dto';
 import { UpdateAaaDto } from './dto/update-aaa.dto';
+import { AaaFilter } from './aaa.filter';
+import { AaaDto } from './dto/aaa.dto';
+import { AaaGuard } from './aaa.guard';
+import { AaaInterceptor } from './aaa.interceptor';
 
 @Controller('aaa')
+@SetMetadata('roles', ['user'])
 export class AaaController {
   constructor(private readonly aaaService: AaaService) {}
 
@@ -17,9 +39,34 @@ export class AaaController {
     return this.aaaService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.aaaService.findOne(+id);
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.aaaService.findOne(+id);
+  // }
+
+  @Get('hello')
+  @UseFilters(AaaFilter)
+  @UseGuards(AaaGuard)
+  @UseInterceptors(AaaInterceptor)
+  @SetMetadata('roles', ['admin'])
+  getHello() {
+    throw new HttpException('xxxx', HttpStatus.BAD_REQUEST);
+  }
+
+  @Get('xxx/:aaa')
+  getHello2(
+    @Param('aaa', ParseIntPipe) aaa: number,
+    @Query('bbb', ParseBoolPipe) bbb: boolean,
+  ) {
+    console.log(typeof aaa, typeof bbb);
+    console.log(aaa, bbb);
+    return 'hello';
+  }
+
+  @Post('/bbb')
+  getHello3(@Body() aaa: AaaDto) {
+    console.log(aaa);
+    return 'hello';
   }
 
   @Patch(':id')
