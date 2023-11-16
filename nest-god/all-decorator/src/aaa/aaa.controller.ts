@@ -18,6 +18,14 @@ import {
   Headers,
   Ip,
   Session,
+  HostParam,
+  Req,
+  Res,
+  Next,
+  HttpCode,
+  Header,
+  Redirect,
+  Render,
 } from '@nestjs/common';
 import { AaaService } from './aaa.service';
 import { CreateAaaDto } from './dto/create-aaa.dto';
@@ -26,8 +34,9 @@ import { AaaFilter } from './aaa.filter';
 import { AaaDto } from './dto/aaa.dto';
 import { AaaGuard } from './aaa.guard';
 import { AaaInterceptor } from './aaa.interceptor';
+import { NextFunction, Request, Response } from 'express';
 
-@Controller('aaa')
+@Controller({ host: ':host.0.0.1', path: 'aaa' })
 @SetMetadata('roles', ['user'])
 export class AaaController {
   constructor(private readonly aaaService: AaaService) {}
@@ -83,6 +92,57 @@ export class AaaController {
     }
     session.count = session.count + 1;
     return session.count;
+  }
+
+  @Get('bbb')
+  getBbb(@HostParam('host') host) {
+    return host;
+  }
+
+  @Get('ccc')
+  ccc(@Req() req: Request) {
+    console.log(req.hostname);
+    console.log(req.url);
+  }
+
+  @Get('ddd')
+  ddd(@Res({ passthrough: true }) res: Response) {
+    return 'ddd';
+  }
+
+  @Get('eee')
+  eee(@Next() next: NextFunction) {
+    console.log('handler1');
+    next();
+    return 'eee1';
+  }
+
+  @Get('eee')
+  eee2() {
+    console.log('handler2');
+    return 'eee2';
+  }
+
+  @Get('fff')
+  @HttpCode(222)
+  fff() {
+    return 'fff';
+  }
+
+  @Get('ggg')
+  @Header('aaa', 'bbb')
+  ggg() {
+    return 'ggg';
+  }
+
+  @Get('hhh')
+  @Redirect('http://juejin.cn')
+  hhh() {}
+
+  @Get('user')
+  @Render('user')
+  user() {
+    return { name: 'kaho', age: 29 };
   }
 
   @Post('/bbb')
