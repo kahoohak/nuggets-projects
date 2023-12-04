@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   // HttpException,
@@ -7,7 +8,9 @@ import {
   ParseBoolPipe,
   ParseFloatPipe,
   ParseIntPipe,
+  Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Param } from '@nestjs/common';
@@ -15,6 +18,9 @@ import { ParseEnumPipe } from '@nestjs/common';
 import { ParseUUIDPipe } from '@nestjs/common';
 import { DefaultValuePipe } from '@nestjs/common';
 import { AaaPipe } from './aaa.pipe';
+import { Kk } from './dto/kk.dto';
+import { MyValidationPipePipe } from './my-validation-pipe.pipe';
+import { Ll } from './dto/ll.dto';
 
 enum Ggg {
   AAA = '111',
@@ -102,5 +108,25 @@ export class AppController {
   ): string {
     console.log(aaa, bbb);
     return aaa + bbb;
+  }
+
+  // @Post('kk')
+  // kk(@Body(new ValidationPipe()) obj: Kk) {
+  //   console.log(obj);
+  // }
+
+  // @Post('kk')
+  // kk(@Body(MyValidationPipePipe) obj: Kk) {
+  //   console.log(obj);
+  // }
+
+  @Post('kk')
+  kk(@Body() obj: Kk) {
+    console.log(obj);
+  }
+
+  @Post('ll')
+  ll(@Body() ll: Ll) {
+    console.log(ll);
   }
 }
