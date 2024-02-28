@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <input id="fileInput" type="file" multiple />
+    <script>
+      const fileInput = document.querySelector('#fileInput');
+
+      const chunkSize = 20 * 1024;
+
+      fileInput.onchange = async function () {
+        const file = fileInput.files[0];
+        console.log('file', file);
+
+        const chunks = [];
+        let startPos = 0;
+        while (startPos < file.size) {
+          const endPos = startPos + chunkSize;
+          chunks.push(file.slice(startPos, endPos));
+          startPos = endPos;
+        }
+
+        for (let i = 0; i < chunks.length; i++) {
+          const formData = new FormData();
+          formData.set('name', file.name);
+          formData.append('files', chunks[i]);
+          formData.append('index', i + 1);
+          formData.append('total', chunks.length);
+
+          try {
+            const response = await axios.post(
+              'http://localhost:3000/upload',
+              formData
+            );
+            console.log('Upload chunk', i, 'success');
+          } catch (error) {
+            console.log('error', error);
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
