@@ -49,11 +49,19 @@ export class AppController {
     const chunkDir = 'uploads/chunk_' + name;
     const files = fs.readdirSync(chunkDir);
 
+    let count = 0;
     let start = 0;
     files.map((file) => {
       const filePath = chunkDir + '/' + file;
       const stream = fs.createReadStream(filePath);
-      stream.pipe(fs.createWriteStream('uploads/' + name, { start }));
+      stream
+        .pipe(fs.createWriteStream('uploads/' + name, { start }))
+        .on('finish', () => {
+          count++;
+          if (count === files.length) {
+            fs.rmSync(chunkDir, { recursive: true });
+          }
+        });
       start += fs.statSync(filePath).size;
     });
   }

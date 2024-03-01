@@ -27,25 +27,20 @@
         }
 
         const randomStr = Math.random().toString().slice(2, 8);
+        const tasks = [];
 
         for (let i = 0; i < chunks.length; i++) {
           const formData = new FormData();
-          // formData.set('name', `${randomStr}_${file.name}`);
-          formData.set('name', `${file.name}`);
+          formData.set('name', `${randomStr}_${file.name}`);
           formData.append('files', chunks[i]);
           formData.append('index', i + 1);
           formData.append('total', chunks.length);
 
-          try {
-            const response = await axios.post(
-              'http://localhost:3000/upload',
-              formData
-            );
-            console.log('Upload chunk', i, 'success');
-          } catch (error) {
-            console.log('error', error);
-          }
+          tasks.push(axios.post('http://localhost:3000/upload', formData));
         }
+
+        await Promise.all(tasks);
+        axios.get(`http://localhost:3000/merge?name=${randomStr}_${file.name}`)
       };
     </script>
   </body>
