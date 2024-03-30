@@ -7,7 +7,7 @@ async function runBuild() {
     // 当前项目根目录
     absWorkingDir: process.cwd(),
     // 入口文件列表，为一个数组
-    entryPoints: ["./src/index.jsx"],
+    entryPoints: ["../src/index.jsx"],
     // 打包产物目录
     outdir: "dist",
     // 是否需要打包，一般设为 true

@@ -10,7 +10,7 @@ function runServe() {
     },
     {
       absWorkingDir: process.cwd(),
-      entryPoints: ["./src/index.jsx"],
+      entryPoints: [process.cwd() + "/src/index.jsx"],
       bundle: true,
       format: "esm",
       splitting: true,
